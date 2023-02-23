@@ -103,7 +103,7 @@ int main()
             break;
 
         case 5:
-            cout << "Users: " << chat->getUsersCount() << endl;
+            cout << "Your name: " << chat->getCurrentUser()->getLogin() << "\nUsers: " << chat->getUsersCount() << endl;
             cout << "ID  User  PWD \n";
             chat->printUsers();
             cout << "-1. Back\n";
