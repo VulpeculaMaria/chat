@@ -30,7 +30,7 @@ int main()
             cout << "1. Login\n";
             cout << "2. Registration\n";
             cout << "3. Exit\n";
-            cout << "input > "; cin >> menuState;
+            cout << "input menu > "; cin >> menuState;
             break;
 
         case 1:
@@ -86,7 +86,7 @@ int main()
             cout << "Chat:\n";
             cout << "1. Show users\n";
             cout << "2. Log out\n";
-            cout << "input > "; cin >> menuState;
+            cout << "input menu > "; cin >> menuState;
             switch (menuState)
             {
             case 1: 
@@ -104,10 +104,10 @@ int main()
 
         case 5:
             cout << "Your name: " << chat->getCurrentUser()->getLogin() << "\nUsers: " << chat->getUsersCount() << endl;
-            cout << "ID  User  PWD \n";
+            cout << "\nID  User  PWD \n";
             chat->printUsers();
-            cout << "-1. Back\n";
-            cout << "input > "; cin >> menuState;
+            cout << "\n-1. Back\n";
+            cout << "input user id > "; cin >> menuState;
 
             
             if (0 <= menuState && menuState < chat->getUsersCount())
@@ -134,7 +134,9 @@ int main()
             
             cout << "Chat with " << chatWithUserName <<":\n";
             chat->getCurrentUser()->printConversation(chatWithUserName);
-            cout << "input message > "; cin >> msg;
+            cout << "input message > "; 
+            //cin >> msg;
+            getline(cin >> ws, msg); // ввод сообщения с пробелами
             // send message to  chatWithUserName
             
             chat->sendMessage(chat->getUserByName(chatWithUserName), new Message(chat->getCurrentUserName(), chatWithUserName, msg));
@@ -147,5 +149,5 @@ int main()
             break;
         }
     }
-    
+    delete chat;
 }
