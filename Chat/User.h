@@ -8,13 +8,13 @@
 class User
 {
 public:
-	User(std::string name, std::string login, std::string password);
+	User(const std::string& name, const std::string& login, const std::string& password);
 	~User();
-	std::string getName();
-	std::string getLogin();
-	std::string getPassword();
-	void addMessageToConversation(std::string conversation, Message* message);
-	void printConversation(std::string conversationName) ;
+	std::string getName() const;
+	std::string getLogin() const;
+	std::string getPassword() const;
+	void addMessageToConversation(const std::string& conversation, Message* message);
+	void printConversation(const std::string& conversationName) ;
 private:
 	std::string _name;
 	std::string _login;

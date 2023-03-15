@@ -11,21 +11,21 @@ public:
 	Chat();
 	~Chat();
 
-	void createUser(User* user);
-	void deleteUser(const int index);
-	void sendMessage(User* receiver, Message* message);
+	void createUser( User* user);
+	void deleteUser(const int& index);
+	void sendMessage( User* receiver, Message* message);
 	void sendMessageToAll(Message* message);
 	void printUsers();
-	bool login(std::string login, std::string password);
+	bool login(const std::string& login, const std::string& password);
 	void logOff();
 	bool isCurrentUserLogedIn() const;
-	int isUserExist(std::string login) const;
-	int getUsersCount() const;
-	int getMessagesCount() const;
+	size_t isUserExist(const std::string& login) const;
+	size_t getUsersCount() const;
+	size_t getMessagesCount() const;
 	std::string getCurrentUserLogin() const;
-	std::string getUserLoginByID(int userID) const;
-	User* getUserByID(int userID) const;
-	User* getUserByLogin(std::string login) const;
+	std::string getUserLoginByID(const int& userID) const;
+	User* getUserByID(const int& userID) const;
+	User* getUserByLogin(const std::string& login) const;
 	User* getCurrentUser() const;
 	
 private:
@@ -34,6 +34,5 @@ private:
 
 	std::vector<Message*> _messages;
 	std::vector<User*> _users;
-	//std::vector<> _correspondence;
 };
 

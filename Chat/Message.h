@@ -4,7 +4,7 @@
 class Message
 {
 public:
-	Message(std::string sender, std::string receiver, std::string text);
+	Message(const std::string& sender, const std::string& receiver, const std::string& text);
 	~Message();
 	std::string getMessage() const;
 	std::string getSender() const;

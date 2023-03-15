@@ -19,27 +19,27 @@ Chat::~Chat()
 	}
 }
 
-void Chat::createUser(User* user)
+void Chat::createUser( User* user)
 {
 	_users.emplace_back(user);
 }
 
-void Chat::deleteUser(const int index)
+void Chat::deleteUser(const int& index)
 {
 	_users.erase(_users.begin() + index);
 }
 
-int Chat::isUserExist(std::string login) const
+size_t Chat::isUserExist(const std::string& login) const
 {
 	size_t length = _users.size();
 	for (size_t i = 0; i < length; i++)
 	{
-		if ( login == _users[i]->getLogin() ) return (int)i;
+		if ( login == _users[i]->getLogin() ) return i;
 	}
 	return -1;
 }
 
-void Chat::sendMessage(User* receiver, Message* message)
+void Chat::sendMessage( User* receiver,  Message* message)
 {
 	_messages.emplace_back(message);
 	if (receiver == _currentUser)
@@ -54,7 +54,7 @@ void Chat::sendMessage(User* receiver, Message* message)
 	
 }
 
-void Chat::sendMessageToAll(Message* message)
+void Chat::sendMessageToAll( Message* message)
 {
 	_messages.emplace_back(message);
 	size_t length = _users.size();
@@ -64,7 +64,7 @@ void Chat::sendMessageToAll(Message* message)
 	}
 }
 
-void Chat::printUsers()
+void Chat::printUsers() 
 {
 	size_t length = _users.size();
 	for (size_t i = 0; i < length; i++)
@@ -75,7 +75,7 @@ void Chat::printUsers()
 	}
 }
 
-bool Chat::login(std::string login, std::string password)
+bool Chat::login(const std::string& login, const std::string& password)
 {
 	
 	int userID = isUserExist(login);
@@ -104,12 +104,12 @@ bool Chat::isCurrentUserLogedIn() const
 }
 
 
-int Chat::getUsersCount() const
+size_t Chat::getUsersCount() const
 {
 	return _users.size();
 }
 
-int Chat::getMessagesCount() const
+size_t Chat::getMessagesCount() const
 {
 	return _messages.size();
 }
@@ -119,7 +119,7 @@ std::string Chat::getCurrentUserLogin() const
 	return _currentUser->getLogin();
 }
 
-std::string Chat::getUserLoginByID(int userID) const
+std::string Chat::getUserLoginByID(const int& userID) const
 {
 	try
 	{
@@ -132,7 +132,7 @@ std::string Chat::getUserLoginByID(int userID) const
 	
 }
 
-User* Chat::getUserByID(int userID) const
+User* Chat::getUserByID(const int& userID) const
 {
 	try
 	{
@@ -144,10 +144,10 @@ User* Chat::getUserByID(int userID) const
 	}
 }
 
-User* Chat::getUserByLogin(std::string userName) const
+User* Chat::getUserByLogin(const std::string& userName) const
 {
-	int length = _users.size();
-	for (int i = 0; i < length; i++)
+	size_t length = _users.size();
+	for (size_t i = 0; i < length; i++)
 	{
 		if (userName == _users[i]->getLogin()) return _users[i];
 	}
