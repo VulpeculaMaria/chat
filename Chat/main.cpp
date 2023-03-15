@@ -35,7 +35,7 @@ int main()
         if (chat->isCurrentUserLogedIn())
         {
             std::cout << "Your Login: " << chat->getCurrentUser()->getLogin() <<
-                " Your Name: " << chat->getCurrentUser()->getName() << 
+                "\nYour Name: " << chat->getCurrentUser()->getName() << 
                 "\nUsers: " << chat->getUsersCount() << " Messages: " << chat->getMessagesCount() <<  "\n\n";
         }
         switch (menuState)
@@ -63,7 +63,7 @@ int main()
             std::cout << "Login:\n";
             std::cout << "input Login > "; std::cin >> login;
             if (chat->isUserExist(login) == -1)
-            {
+            {   // если пользователя не существует, предлагаем зарегистрироваться
                 std::cout << "User " << login << " dosn't exist enter name and password to registration:\n";
                 std::cout << "input Name > "; std::cin >> name;
                 std::cout << "input Password > "; std::cin >> password;
@@ -71,9 +71,9 @@ int main()
                 // авто вход
                 chat->login(login, password);
             }
-            else
-            {
-                std::cout << "Hello, " << login << "\n";
+            else // если пользователь уже существует то просим войти
+            {    // приветствуем пользователя по имени
+                std::cout << "Hello, " << chat->getUserByLogin(login)->getName() << "\n";
                 while (!chat->login(login, password))
                 {
                     std::cout << "input Password > "; std::cin >> password;
@@ -95,7 +95,7 @@ int main()
                 chat->login(login, password);
             }
             else // если пользователь уже существует то просим войти
-            {
+            {    // приветствуем пользователя по имени
                 std::cout << "Hello, " << chat->getUserByLogin(login)->getName() << "\n";
                 while (!chat->login(login, password))
                 {
@@ -123,14 +123,14 @@ int main()
             switch (menuState)
             {
             case 1:
-                menuState = 7;
+                menuState = MENU_CHAT_WITH_ALL_USERS_SCREEN;
                 break;
             case 2: 
-                menuState = 5;
+                menuState = MENU_SELECT_USER_SCREEN;
                 break;
             case 3:
                 chat->logOff();
-                menuState = 0;
+                menuState = MENU_FIRST_SCREEN;
                 break;
              default:
                 menuState = MENU_CHAT_SCREEN;
@@ -193,7 +193,6 @@ int main()
                 break;
             case 1:
                 std::cout << "input message > ";
-                //cin >> msg;
                 std::getline(std::cin >> std::ws, msg); // ввод сообщения с пробелами
                 // send message to  chatWithUserName
                 chat->sendMessage(chat->getUserByLogin(chatWithUserLogin), new Message(chat->getCurrentUserLogin(), chatWithUserLogin, msg));

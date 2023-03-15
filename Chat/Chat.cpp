@@ -69,7 +69,7 @@ void Chat::printUsers()
 	size_t length = _users.size();
 	for (size_t i = 0; i < length; i++)
 	{
-		std::cout << i << " " << _users[i]->getLogin() << " " << _users[i]->getName() << " " << _users[i]->getPassword() << std::endl;
+		std::cout << i << " " << _users[i]->getLogin() << "\t" << _users[i]->getName() << "\t" << _users[i]->getPassword() << std::endl;
 	}
 }
 
