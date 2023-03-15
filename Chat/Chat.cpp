@@ -34,7 +34,7 @@ int Chat::isUserExist(std::string login) const
 	size_t length = _users.size();
 	for (size_t i = 0; i < length; i++)
 	{
-		if ( login == _users[i]->getLogin() ) return i;
+		if ( login == _users[i]->getLogin() ) return (int)i;
 	}
 	return -1;
 }
@@ -54,12 +54,22 @@ void Chat::sendMessage(User* receiver, Message* message)
 	
 }
 
+void Chat::sendMessageToAll(Message* message)
+{
+	_messages.emplace_back(message);
+	size_t length = _users.size();
+	for (size_t i = 0; i < length; i++)
+	{
+		_users[i]->addMessageToConversation("ALL", message);
+	}
+}
+
 void Chat::printUsers()
 {
 	size_t length = _users.size();
 	for (size_t i = 0; i < length; i++)
 	{
-		std::cout << i << " " << _users[i]->getLogin() << " " << _users[i]->getPassword() << std::endl;
+		std::cout << i << " " << _users[i]->getLogin() << " " << _users[i]->getName() << " " << _users[i]->getPassword() << std::endl;
 	}
 }
 
@@ -102,22 +112,37 @@ int Chat::getMessagesCount() const
 	return _messages.size();
 }
 
-std::string Chat::getCurrentUserName() const
+std::string Chat::getCurrentUserLogin() const
 {
 	return _currentUser->getLogin();
 }
 
-std::string Chat::getUserNameByID(int userID) const
+std::string Chat::getUserLoginByID(int userID) const
 {
-	return _users[userID]->getLogin();
+	try
+	{
+		return _users[userID]->getLogin();
+	}
+	catch (const std::exception&)
+	{
+		return "!user";
+	}
+	
 }
 
 User* Chat::getUserByID(int userID) const
 {
-	return _users[userID];
+	try
+	{
+		return _users[userID];
+	}
+	catch (const std::exception&)
+	{
+		return nullptr;
+	}
 }
 
-User* Chat::getUserByName(std::string userName) const
+User* Chat::getUserByLogin(std::string userName) const
 {
 	int length = _users.size();
 	for (int i = 0; i < length; i++)
