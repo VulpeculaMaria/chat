@@ -13,7 +13,7 @@
 - counter of all users
 
 ## User types
-##
+
 |class| description|
 | ------ | ------ |
 |Chat|Main Chat Container|
