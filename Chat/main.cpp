@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "Chat.h"
+#define CHAT_VERSION                        "0.0.7 made by Maria & Pavel"
 
 #define MENU_FIRST_SCREEN                   0
 #define MENU_LOGIN_SCREEN                   1
@@ -32,12 +33,13 @@ int main()
         std::string msg = "";
         
         system("CLS");
+        std::cout << "Chat version: " << CHAT_VERSION;
         if (chat->isCurrentUserLogedIn())
         {
-            std::cout << "Your Login: " << chat->getCurrentUser()->getLogin() <<
-                "\nYour Name: " << chat->getCurrentUser()->getName() << 
-                "\nUsers: " << chat->getUsersCount() << " Messages: " << chat->getMessagesCount() <<  "\n\n";
+            std::cout << "\nYour Login: " << chat->getCurrentUser()->getLogin() <<
+                "\nYour Name: " << chat->getCurrentUser()->getName();
         }
+        std::cout << "\nUsers: " << chat->getUsersCount() << " Messages: " << chat->getMessagesCount() << "\n\n";
         switch (menuState)
         {
         case MENU_FIRST_SCREEN:
