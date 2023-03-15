@@ -7,8 +7,8 @@
 - monkey with GPT-4
 
 ## Idea
-##### simple console chat
-- menu with digital navigation
+##### simple console chat with:
+- menu and digital navigation
 - all messages counter
 - counter of all users
 
