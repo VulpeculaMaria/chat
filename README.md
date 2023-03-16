@@ -1,13 +1,13 @@
 ## Team
-##### developers:
+#### developers:
 - Maria
 - Pavel
 
-##### teamlead:
+#### teamlead:
 - monkey with GPT-4
 
 ## Idea
-##### simple console chat with:
+#### simple console chat with:
 - menu and digital navigation
 - all messages counter
 - counter of all users
