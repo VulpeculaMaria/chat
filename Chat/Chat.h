@@ -12,13 +12,16 @@ public:
 	~Chat();
 
 	void createUser( User* user);
+	void createAdminUser(User* user);
 	void deleteUser(const int& index);
 	void sendMessage( User* receiver, Message* message);
 	void sendMessageToAll(Message* message);
 	void printUsers();
+	void printMessages();
 	bool login(const std::string& login, const std::string& password);
 	void logOff();
 	bool isCurrentUserLogedIn() const;
+	bool isCurrentUserAdmin() const;
 	size_t isUserExist(const std::string& login) const;
 	size_t getUsersCount() const;
 	size_t getMessagesCount() const;

@@ -25,6 +25,16 @@ std::string User::getPassword() const
 	return _password;
 }
 
+bool User::isUserAdmin() const
+{
+	return _isAdmin;
+}
+
+void User::setUserAdmin(const bool& admin)
+{
+	_isAdmin = admin;
+}
+
 void User::addMessageToConversation(const std::string& conversation, Message* message)
 {
 	_conversations[conversation].emplace_back(message);

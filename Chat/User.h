@@ -13,9 +13,12 @@ public:
 	std::string getName() const;
 	std::string getLogin() const;
 	std::string getPassword() const;
+	bool isUserAdmin() const;
+	void setUserAdmin(const bool& admin);
 	void addMessageToConversation(const std::string& conversation, Message* message);
 	void printConversation(const std::string& conversationName) ;
 private:
+	bool _isAdmin = false;
 	std::string _name;
 	std::string _login;
 	std::string _password;

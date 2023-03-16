@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "Chat.h"
-#define CHAT_VERSION                        "0.0.7 made by Maria & Pavel"
+#define CHAT_VERSION                        "0.0.77 made by Maria & Pavel"
 
 #define MENU_FIRST_SCREEN                   0
 #define MENU_LOGIN_SCREEN                   1
@@ -12,6 +12,22 @@
 #define MENU_SELECT_USER_SCREEN             5
 #define MENU_CHAT_WITH_SCREEN               6
 #define MENU_CHAT_WITH_ALL_USERS_SCREEN     7
+#define MENU_CHAT_ADMIN_SCREEN              127
+#define MENU_CHAT_ADMIN_SHOW_ALL_MESSAGES   1337
+
+const char* chat_god = R"(
+                _______                _______  _______  _______       _______       _______  _______  ______  
+      |\     /|(  ___  )|\     /|     (  ___  )(  ____ )(  ____ \     (  ___  )     (  ____ \(  ___  )(  __  \ 
+      ( \   / )| (   ) || )   ( |     | (   ) || (    )|| (    \/     | (   ) |     | (    \/| (   ) || (  \  )
+       \ (_) / | |   | || |   | |     | (___) || (____)|| (__         | (___) |     | |      | |   | || |   ) |
+        \   /  | |   | || |   | |     |  ___  ||     __)|  __)        |  ___  |     | | ____ | |   | || |   | |
+         ) (   | |   | || |   | |     | (   ) || (\ (   | (           | (   ) |     | | \_  )| |   | || |   ) |
+         | |   | (___) || (___) |     | )   ( || ) \ \__| (____/\     | )   ( |     | (___) || (___) || (__/  )
+         \_/   (_______)(_______)     |/     \||/   \__/(_______/     |/     \|     (_______)(_______)(______/
+)";
+
+
+
 
 int main()
 {
@@ -20,6 +36,7 @@ int main()
     std::string chatWithUserLogin = "";
     
     // добавим несколько пользователей
+    chat->createAdminUser(new User("God", "admin", "root"));
     chat->createUser(new User("User", "user", "123"));
     chat->createUser(new User("Arkadyi", "defaultUser1", "123"));
     chat->createUser(new User("Petr", "defaultUser2", "123"));
@@ -36,6 +53,7 @@ int main()
         std::cout << "Chat version: " << CHAT_VERSION;
         if (chat->isCurrentUserLogedIn())
         {
+            if (chat->isCurrentUserAdmin()) std::cout << chat_god;
             std::cout << "\nYour Login: " << chat->getCurrentUser()->getLogin() <<
                 "\nYour Name: " << chat->getCurrentUser()->getName();
         }
@@ -116,6 +134,8 @@ int main()
             std::cout << "1. General chat\n";
             std::cout << "2. Show users to chating\n";
             std::cout << "3. Log out\n";
+            if (chat->isCurrentUserAdmin()) std::cout << "127. Delete users\n";
+            if (chat->isCurrentUserAdmin()) std::cout << "1337. Show all messages\n";
             std::cout << "input menu > "; std::cin >> menuState;
             if (std::cin.fail()) {
                 std::cin.clear();
@@ -134,7 +154,10 @@ int main()
                 chat->logOff();
                 menuState = MENU_FIRST_SCREEN;
                 break;
-             default:
+            case MENU_CHAT_ADMIN_SCREEN: break; // удаление пользователей
+            case MENU_CHAT_ADMIN_SHOW_ALL_MESSAGES: break; // все сообщения
+
+            default:
                 menuState = MENU_CHAT_SCREEN;
                 break;
             }
@@ -239,6 +262,65 @@ int main()
             }
             break;
 
+        case MENU_CHAT_ADMIN_SCREEN:
+            std::cout << "ID  Login  Name  PWD \n";
+            chat->printUsers();
+            std::cout << "____________________________________________\n";
+            std::cout << "type ID or -1 to Back\n";
+            std::cout << "input user id > "; std::cin >> menuState;
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore();
+                menuState = MENU_CHAT_ADMIN_SCREEN;
+            }
+
+            if (0 <= menuState && menuState < chat->getUsersCount())
+            {
+                if (!chat->getUserByID(menuState)->isUserAdmin())
+                {
+                    chat->deleteUser(menuState);
+                }
+                
+
+                menuState = MENU_CHAT_ADMIN_SCREEN;
+            }
+            else
+            {
+                if (menuState == -1)
+                {
+                    menuState = MENU_CHAT_SCREEN;
+                }
+                else
+                {
+                    //std::cout << "User not found\n"; std::cin >> menuState;
+                    menuState = MENU_CHAT_ADMIN_SCREEN;
+                }
+            }
+            break;
+
+        case MENU_CHAT_ADMIN_SHOW_ALL_MESSAGES:
+            std::cout << "Messages: \n";
+            chat->printMessages();
+            std::cout << "___________________________________________________________\n";
+            std::cout << "-1 to Back\n";
+            std::cout << "input menu > "; std::cin >> menuState;
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore();
+                menuState = MENU_CHAT_ADMIN_SHOW_ALL_MESSAGES;
+            }
+
+            if (menuState == -1)
+            {
+                menuState = MENU_CHAT_SCREEN;
+            }
+            else
+            {
+                //std::cout << "User not found\n"; std::cin >> menuState;
+                menuState = MENU_CHAT_ADMIN_SHOW_ALL_MESSAGES;
+            }
+            
+            break;
         default:
             menuState = MENU_FIRST_SCREEN;
             break;

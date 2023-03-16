@@ -24,6 +24,12 @@ void Chat::createUser( User* user)
 	_users.emplace_back(user);
 }
 
+void Chat::createAdminUser(User* user)
+{
+	user->setUserAdmin(true);
+	_users.emplace_back(user);
+}
+
 void Chat::deleteUser(const int& index)
 {
 	_users.erase(_users.begin() + index);
@@ -75,6 +81,18 @@ void Chat::printUsers()
 	}
 }
 
+void Chat::printMessages()
+{
+	size_t length = _messages.size();
+	for (size_t i = 0; i < length; i++)
+	{
+		std::cout << "___________________________________________________________\n" 
+			<< i << ". (" << _messages[i]->getSender() << " >>> "
+						  << _messages[i]->getReceiver() << "): "
+						  << _messages[i]->getMessage() << std::endl;
+	}
+}
+
 bool Chat::login(const std::string& login, const std::string& password)
 {
 	
@@ -101,6 +119,11 @@ void Chat::logOff()
 bool Chat::isCurrentUserLogedIn() const
 {
 	return _isCurrentUserLogedIn;
+}
+
+bool Chat::isCurrentUserAdmin() const
+{
+	return _currentUser->isUserAdmin();
 }
 
 
