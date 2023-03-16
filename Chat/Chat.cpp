@@ -96,7 +96,7 @@ void Chat::printMessages()
 bool Chat::login(const std::string& login, const std::string& password)
 {
 	
-	int userID = isUserExist(login);
+	size_t userID = isUserExist(login);
 	if (userID == -1) return false;
 	if (_users[userID]->getPassword() == password)
 	{
