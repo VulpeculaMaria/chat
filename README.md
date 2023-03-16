@@ -21,7 +21,7 @@ cmd: 1 admin root
 ```
 
 ## User types
-##
+
 |class| description|
 | ------ | ------ |
 |Chat|Main Chat Container|
