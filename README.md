@@ -13,7 +13,7 @@
 - counter of all users
 - small admin functions as feature
 
-## try admin functions
+## Try admin functions
 > you need login as default admin user "admin" with password "root"
 > then you see extra options in menu
 ```sh
