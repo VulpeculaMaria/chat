@@ -14,14 +14,14 @@ public:
 	std::string getLogin() const;
 	std::string getPassword() const;
 	bool isUserAdmin() const;
-	void setUserAdmin(const bool& admin);
-	void addMessageToConversation(const std::string& conversation, Message* message);
+	void setUserAdmin(bool admin);
+	void addMessageToConversation(const std::string& conversation, std::shared_ptr<Message> message);
 	void printConversation(const std::string& conversationName) ;
 private:
 	bool _isAdmin = false;
 	std::string _name;
 	std::string _login;
 	std::string _password;
-	std::map<std::string, std::vector<Message*>> _conversations;
+	std::map<std::string, std::vector<std::shared_ptr<Message>>> _conversations;
 };
 

@@ -2,13 +2,10 @@
 
 
 User::User(const std::string& name, const std::string& login, const std::string& password) :
-	_name{ name }, _login{ login }, _password{ password }
-{
-}
+	_name{ name }, _login{ login }, _password{ password }{}
 
-User::~User()
-{
-}
+User::~User() = default;
+
 
 std::string User::getName() const
 {
@@ -30,12 +27,12 @@ bool User::isUserAdmin() const
 	return _isAdmin;
 }
 
-void User::setUserAdmin(const bool& admin)
+void User::setUserAdmin(bool admin)
 {
 	_isAdmin = admin;
 }
 
-void User::addMessageToConversation(const std::string& conversation, Message* message)
+void User::addMessageToConversation(const std::string& conversation, std::shared_ptr<Message> message)
 {
 	_conversations[conversation].emplace_back(message);
 }

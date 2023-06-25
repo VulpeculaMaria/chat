@@ -1,21 +1,27 @@
 #pragma once
 #include <iostream>
+#include <iomanip>
+#include <memory>
 #include "Message.h"
 #include "User.h"
 #include <vector>
 
+#include "NetworkClient.h"
+#include "NetworkServer.h"
+
 class Chat
 {
-
 public:
 	Chat();
 	~Chat();
 
-	void createUser( User* user);
-	void createAdminUser(User* user);
-	void deleteUser(const int& index);
-	void sendMessage( User* receiver, Message* message);
-	void sendMessageToAll(Message* message);
+	void startChat();
+
+	void createUser(std::shared_ptr<User> user);
+	void createAdminUser(std::shared_ptr<User> user);
+	void deleteUser(int index);
+	void sendMessage(std::shared_ptr<User> receiver, std::shared_ptr<Message> message);
+	void sendMessageToAll(std::shared_ptr<Message> message);
 	void printUsers();
 	void printMessages();
 	bool login(const std::string& login, const std::string& password);
@@ -26,16 +32,17 @@ public:
 	size_t getUsersCount() const;
 	size_t getMessagesCount() const;
 	std::string getCurrentUserLogin() const;
-	std::string getUserLoginByID(const int& userID) const;
-	User* getUserByID(const int& userID) const;
-	User* getUserByLogin(const std::string& login) const;
-	User* getCurrentUser() const;
+	std::string getUserLoginByID(int userID) const;
+	std::shared_ptr<User> getUserByID(int userID) const;
+	std::shared_ptr<User> getUserByLogin(const std::string& login) const;
+	std::shared_ptr<User> getCurrentUser() const;
 	
 private:
-	User* _currentUser = nullptr;
+	std::shared_ptr<User> _currentUser = nullptr;
 	bool _isCurrentUserLogedIn = false;
 
-	std::vector<Message*> _messages;
-	std::vector<User*> _users;
+	std::vector<std::shared_ptr<Message>> _messages;
+	std::vector<std::shared_ptr<User>> _users;
+
 };
 
